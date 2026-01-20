@@ -77,11 +77,18 @@ query products($searchString: String, $order: [ProductSortModelInput], $facets: 
 """.strip()
 
 
-def _pick_price(prices: list[dict[str, Any]] | None) -> tuple[str, str | None]:
+def _pick_price(prices: Any) -> tuple[str, str | None]:
     if not prices:
         return "Price not available", None
 
-    for price_item in prices:
+    if isinstance(prices, dict):
+        price_items = [prices]
+    elif isinstance(prices, list):
+        price_items = prices
+    else:
+        return "Price not available", None
+
+    for price_item in price_items:
         if not isinstance(price_item, dict):
             continue
         yellow = price_item.get("yellow") or {}
@@ -90,7 +97,7 @@ def _pick_price(prices: list[dict[str, Any]] | None) -> tuple[str, str | None]:
         if price_with_vat is not None:
             return f"€{price_with_vat}", unit
 
-    for price_item in prices:
+    for price_item in price_items:
         if not isinstance(price_item, dict):
             continue
         orange = price_item.get("orange") or {}
