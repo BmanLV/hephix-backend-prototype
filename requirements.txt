@@ -1,6 +1,4 @@
 fastapi
 uvicorn[standard]
 httpx
-beautifulsoup4
 mcp
-playwright

@@ -1,6 +1,6 @@
 # Hephix API Prototype
 
-A minimal FastAPI service with a single `/chat` endpoint that scrapes search results from online.depo.lv based on your message.
+A minimal FastAPI service with a single `/chat` endpoint that queries online.depo.lv via GraphQL based on your message.
 
 ## Requirements
 
@@ -8,8 +8,6 @@ A minimal FastAPI service with a single `/chat` endpoint that scrapes search res
 - `fastapi`
 - `uvicorn`
 - `httpx`
-- `beautifulsoup4` (optional, improves parsing)
-- `playwright` (optional, improves JS-rendered pages)
 
 ## Setup
 
@@ -17,8 +15,6 @@ A minimal FastAPI service with a single `/chat` endpoint that scrapes search res
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-# Optional: install Playwright browsers
-playwright install
 ```
 
 ## Run
@@ -80,8 +76,6 @@ Set allowed origins via env var:
 export CORS_ORIGINS="https://your-site.netlify.app"
 ```
 
-Note: Playwright is optional. If you need it inside Docker, ensure `playwright` is in
-`requirements.txt` and install browsers during the image build.
 
 ## Endpoint
 
